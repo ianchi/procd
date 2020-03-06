@@ -276,6 +276,10 @@ static int system_info(struct ubus_context *ctx, struct ubus_object *obj,
 	blob_buf_init(&b, 0);
 
 	blobmsg_add_u32(&b, "localtime", now + tm->tm_gmtoff);
+	blobmsg_add_u32(&b, "UTCtime", now);
+	blobmsg_add_u32(&b, "UTCoffset", tm->tm_gmtoff);
+	blobmsg_add_u8(&b, "isdst", tm->tm_isdst > 0);
+	blobmsg_add_string(&b, "tzone", tm->tm_zone);
 
 #ifdef linux
 	blobmsg_add_u32(&b, "uptime",    info.uptime);
